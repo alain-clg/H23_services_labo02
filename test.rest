@@ -3,7 +3,7 @@ GET http://127.0.0.1:8000/api/livres
 ###
 GET http://127.0.0.1:8000/api/livres/titre/A
 ###
-GET http://127.0.0.1:8000/api/livres/auteur/S
+GET http://127.0.0.1:8000/api/livres/auteur/Steve
 ###
 GET http://127.0.0.1:8000/api/livres/isbn/403
 ###
@@ -22,9 +22,39 @@ Content-Type: application/json
     "isbn": "12345339",
     "prix": 999.99
 }
+### 
+DELETE http://127.0.0.1:8000/api/livres/12345
+### 
+DELETE http://127.0.0.1:8000/api/livres/123456
+###
+PUT http://127.0.0.1:8000/api/livres/123456
+Content-Type: application/json
+
+  {
+    "titre": "888 mon beau livre",
+    "auteur": "Steve Caillou",
+    "editeur": "Kekchose",
+    "langue": "Français/French",
+    "isbn": "123456",
+    "prix": 1.29,
+    "description": "AAAAAAAAAAAAAAAAA",
+    "nbPage": 132
+  }
 ###
 GET http://127.0.0.1:8000/api/users
 ###
-GET http://127.0.0.1:8000/api/users/login/ala
+POST http://127.0.0.1:8000/api/users
+Content-Type: application/json
+
+{
+    "login": "AAAAJo@gmail.com",
+    "pwd": "AAAA123",
+    "nom": "AAA Jo"
+}
+###
+DELETE http://127.0.0.1:8000/api/users/aaa@gmail.com
+
+###
+GET http://127.0.0.1:8000/api/users/login/AAA
 ###
 GET http://127.0.0.1:8000/api/users/nom/Fred

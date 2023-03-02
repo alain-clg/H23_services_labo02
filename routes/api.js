@@ -19,6 +19,20 @@ router.post('/livres', (requete, reponse) => {
         reponse.json(retourLivre);
     });
 });
+
+router.put('/livres/:isbnLivre', (requete, reponse)=>{
+    let nouveauLivre = requete.body;
+    Livres.modifierLivre(requete.params.isbnLivre, nouveauLivre, (err, resultat) => {
+        if (err) throw err;
+        reponse.json(resultat);
+    });
+});
+router.delete('/livres/:isbnLivre', (requete, reponse)=>{
+    Livres.supprimerLivre(requete.params.isbnLivre, (err, livre) => {
+        if (err) throw err;
+        reponse.json(livre);
+    });
+});
 router.get('/livres/titre/:titreLivre', (requete, reponse) => {
     Livres.getLivreParChamp("titre", requete.params.titreLivre, (err, livre)=>{
         if (err) throw err;
@@ -48,6 +62,20 @@ router.get('/users', (requete, reponse) => {
         if (err) throw err;
         reponse.json(users);
     }, 25);
+});
+router.post('/users', (requete, reponse) => {
+    let user = requete.body;
+    // console.log(livre);
+    Users.ajoutLUser( user, (err, retourUser)=>{
+        if (err) throw err;
+        reponse.json(retourUser);
+    });
+});
+router.delete('/users/:loginUser', (requete, reponse) => {
+    Users.supprimerUser(requete.params.loginUser, (err, resultat) => {
+        if (err) throw err;
+        reponse.json(resultat);
+    });
 });
 router.get('/users/nom/:nomUser', (requete, reponse) => {
     Users.getUserParChamp("nom", requete.params.nomUser, (err, users)=>{

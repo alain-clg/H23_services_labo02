@@ -60,8 +60,34 @@ module.exports.getLivreParChamp = (nomChamp, critere, callback) => {
     console.log(query);
     Livres.find(query, callback);
 }
+// méthode pour ajouter un livre à la BD
+// le livre reçu en format JSON ne contient pas le champ
+// _id qui est obligatoire, on le crée avec mongoose
 module.exports.ajoutLivre = (livre, callback) => {
     livre._id = new mongoose.Types.ObjectId();
     // console.log(livre);
     Livres.create(livre, callback);
 }
+// méthode pour supprimer un livre dans la BD
+// on doit fournir l'isbn du livre à supprimer
+module.exports.supprimerLivre = (isbnLivre, callback) => {
+    let filtre = { "isbn": isbnLivre };
+    Livres.deleteOne(filtre, callback);
+};
+// méthode pour modifier un livre dans la BD
+// on doit fournir l'isbn du livre et le nouveau contenu du livre
+module.exports.modifierLivre = (isbnLivre, nouvLivre, callback) => {
+    let filtre = { "isbn": isbnLivre };
+    let options = { };
+    let nouveauLivre = {
+        auteur: nouvLivre.auteur,
+        titre: nouvLivre.titre,
+        description: nouvLivre.description,
+        editeur: nouvLivre.editeur,
+        nbPage: nouvLivre.nbPage,
+        langue: nouvLivre.langue,
+        isbn: nouvLivre.isbn,
+        prix: nouvLivre.prix
+    };
+    Livres.findOneAndUpdate(filtre, nouveauLivre, options, callback);
+};

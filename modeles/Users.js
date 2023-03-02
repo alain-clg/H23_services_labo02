@@ -38,3 +38,14 @@ module.exports.getUserParChamp = (champ, critere, callback, limit) => {
     console.log(query);
     Users.find(query, callback).limit(limit);
 }
+module.exports.ajoutLUser = (user, callback) => {
+    user._id = new mongoose.Types.ObjectId();
+    // console.log(livre);
+    Users.create(user, callback);
+}
+// méthode pour supprimer un user dans la BD
+// on doit fournir le login du user à supprimer
+module.exports.supprimerUser = (loginUser, callback) => {
+    let filtre = { "login": loginUser };
+    Users.deleteOne(filtre, callback);
+}
