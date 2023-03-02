@@ -22,7 +22,8 @@ db.once('open', () => {
 });
 
 app.use('/', require('./routes/index'));
-app.use('/api', require('./routes/api'));
+app.use('/api/livres', require('./routes/apiLivres'));
+app.use('/api/users', require('./routes/apiUsers'));
 
 app.listen(8000);
 

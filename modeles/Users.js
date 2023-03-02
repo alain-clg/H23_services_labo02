@@ -49,3 +49,15 @@ module.exports.supprimerUser = (loginUser, callback) => {
     let filtre = { "login": loginUser };
     Users.deleteOne(filtre, callback);
 }
+// méthode pour modifier un user dans la BD
+// on doit fournir le login du user et le nouveau contenu du user
+module.exports.modifierUser = (loginUser, nouvUser, callback) => {
+    let filtre = { "login": loginUser };
+    let options = { };
+    let nouveauUser = {
+        login: nouvUser.login,
+        nom: nouvUser.nom,
+        pwd: nouvUser.pwd
+    };
+    Users.findOneAndUpdate(filtre, nouveauUser, options, callback);
+};
