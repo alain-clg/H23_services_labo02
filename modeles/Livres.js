@@ -60,3 +60,8 @@ module.exports.getLivreParChamp = (nomChamp, critere, callback) => {
     console.log(query);
     Livres.find(query, callback);
 }
+module.exports.ajoutLivre = (livre, callback) => {
+    livre._id = new mongoose.Types.ObjectId();
+    // console.log(livre);
+    Livres.create(livre, callback);
+}

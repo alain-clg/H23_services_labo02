@@ -1,0 +1,30 @@
+###
+GET http://127.0.0.1:8000/api/livres
+###
+GET http://127.0.0.1:8000/api/livres/titre/A
+###
+GET http://127.0.0.1:8000/api/livres/auteur/S
+###
+GET http://127.0.0.1:8000/api/livres/isbn/403
+###
+GET http://127.0.0.1:8000/api/livres/description/homme
+###
+POST http://127.0.0.1:8000/api/livres
+Content-Type: application/json
+
+{
+    "auteur": "Steve Caillou",
+    "titre": "111 mon beau livre",
+    "description": "Bla bla bla",
+    "editeur": "Kekchose",
+    "nbPage": 9832,
+    "langue": "Français/French",
+    "isbn": "12345339",
+    "prix": 999.99
+}
+###
+GET http://127.0.0.1:8000/api/users
+###
+GET http://127.0.0.1:8000/api/users/login/ala
+###
+GET http://127.0.0.1:8000/api/users/nom/Fred

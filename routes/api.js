@@ -8,9 +8,17 @@ router.get('/livres', (requete, reponse) => {
     Livres.getLivres((err, livres)=>{
         if (err) throw err;
         reponse.json(livres);
-    }, 5);
+    }, 25);
 });
 
+router.post('/livres', (requete, reponse) => {
+    let livre = requete.body;
+    // console.log(livre);
+    Livres.ajoutLivre( livre, (err, retourLivre)=>{
+        if (err) throw err;
+        reponse.json(retourLivre);
+    });
+});
 router.get('/livres/titre/:titreLivre', (requete, reponse) => {
     Livres.getLivreParChamp("titre", requete.params.titreLivre, (err, livre)=>{
         if (err) throw err;
@@ -29,11 +37,17 @@ router.get('/livres/isbn/:isbnLivre', (requete, reponse) => {
         reponse.json(livre);
     });
 });
+router.get('/livres/description/:descLivre', (requete, reponse) => {
+    Livres.getLivreParChamp("description", requete.params.descLivre, (err, livre)=>{
+        if (err) throw err;
+        reponse.json(livre);
+    });
+});
 router.get('/users', (requete, reponse) => {
     Users.getUsers((err, users)=>{
         if (err) throw err;
         reponse.json(users);
-    }, 5);
+    }, 25);
 });
 router.get('/users/nom/:nomUser', (requete, reponse) => {
     Users.getUserParChamp("nom", requete.params.nomUser, (err, users)=>{
