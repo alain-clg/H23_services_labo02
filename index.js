@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb+srv://alain:paulpaul@cluster0.yml6m.mongodb.net/labo01');
+mongoose.connect('mongodb+srv://alain:PWD@cluster0.yml6m.mongodb.net/labo01');
 
 
 
@@ -24,6 +24,7 @@ db.once('open', () => {
 app.use('/', require('./routes/index'));
 app.use('/api/livres', require('./routes/apiLivres'));
 app.use('/api/users', require('./routes/apiUsers'));
+app.use('/api/roles', require('./routes/apiRoles'));
 
 app.listen(8000);
 
