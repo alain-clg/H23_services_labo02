@@ -5,6 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exemple de page affichant les livres</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".inferieur").hide();
+            $(".superieur").click(function() {
+                $(".inferieur").hide();
+                $(this).find('div.inferieur').show();
+            });
+            fetch('/api/livres')
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data);
+                // des instructions pour analyser et transformer le data
+                
+            })
+            .catch(erreur => console.log(erreur));
+        });
+    </script>
     <style>
         ul {
             margin: 0px;
