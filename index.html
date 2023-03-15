@@ -8,6 +8,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
+            chargeLesLivres();
+            $("#btnAjoutLivre").click(function () {
+                $(this).hide();
+                $("#ajoutLivre").html(`
+                <fieldset>
+                    <legend>Ajout de livre</legend>
+                    <p>Titre: <input type="text" id="addLivTitre"></p>
+                    <p>Auteur: <input type="text" id="addLivAuteur"></p>
+                    <p>Description: <input type="text" id="addLivDesc"></p>
+                    <p>Éditeur: <input type="text" id="addLivEditeur"></p>
+                    <p>Nombre de page: <input type="text" id="addLivPages"></p>
+                    <p>Langue: <input type="text" id="addLivLangue"></p>
+                    <p>ISBN: <input type="text" id="addLivISBN"></p>
+                    <p>Prix: <input type="text" id="addLivPrix"></p>
+                    <p><button id="confirmAjout">Confirmer ajout</button>
+                        <span id="msgAttente"></span></p>
+                </fieldset>
+                `);
+                $("#confirmAjout").click(function () {
+                    $(this).hide();
+                    $("#msgAttente").text("Patientez, insertion en cours...");
+                    let unLivre = {};
+            	    unLivre.auteur = $("#addLivAuteur").val();
+                    unLivre.titre = $("#addLivTitre").val();
+                    unLivre.description = $("#addLivDesc").val();
+                    unLivre.editeur = $("#addLivEditeur").val();
+                    unLivre.nbPage = $("#addLivPages").val();
+                    unLivre.langue = $("#addLivLangue").val();
+                    unLivre.isbn = $("#addLivISBN").val();
+                    unLivre.prix = $("#addLivPrix").val();
+                    postLivre(unLivre);
+                });
+            });
+        });
+        function chargeLesLivres() {
             fetch('/api/livres')
             .then(res => res.json())
             .then(data => {
@@ -23,7 +58,26 @@
                 });
             })
             .catch(erreur => console.log(erreur));
-        });
+        }
+        function postLivre(livre) {
+            const url = '/api/livres';
+            fetch(url, {
+                method: "POST",
+                body: JSON.stringify(livre),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+            .then(res => res.json())
+            .then(resultat => {
+                console.log("resultat du post:", resultat);
+                // il manque quelque chose...
+                $("#ajoutLivre").html('');
+                $("#btnAjoutLivre").show();
+                chargeLesLivres();
+            })
+            .catch(err => console.log(err));
+        }
         function affiche(livre) {
             // console.log('dans affiche livre:', livre);            
             return `<li class="superieur">
@@ -76,7 +130,9 @@
 </head>
 <body>
     <h1>Inventaire des livres</h1>
-    <button>Ajout d'un livre</button>
+    <button id="btnAjoutLivre">Ajout d'un livre</button>
+    <div id="ajoutLivre">
+    </div>
     <div id="entete">
         <p class="col titre">Titre</p>
         <p class="col auteur">Auteur</p>
