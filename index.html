@@ -78,6 +78,22 @@
             })
             .catch(err => console.log(err));
         }
+        function deleteLivre(isbn) {
+            let reponse = confirm("Voulez-vous vraiment supprimer ce livre");
+            if (!reponse) 
+                return;  // on ne supprime pas... on retourne tout de suite...
+            const url = '/api/livres/' + isbn;
+            fetch(url, {
+                method: "DELETE"
+            })
+            .then(res=>res.json())
+            .then(resultat => {
+                console.log("resultat du delete:", resultat);
+                // il manque quelque chose...
+                chargeLesLivres();
+            })
+            .catch(err => console.log(err));
+        }
         function affiche(livre) {
             // console.log('dans affiche livre:', livre);            
             return `<li class="superieur">
@@ -85,7 +101,7 @@
                 <p class="col auteur"> ${livre.auteur}</p>
                 <div class="inferieur">
                     <fieldset>
-                        <legend>${livre.titre}</legend>
+                        <legend>${livre.titre} - <button onclick="deleteLivre('${livre.isbn}')">Supprimer</button></legend>
                         <p>Description: ${livre.description}</p>
                         <p>Éditeur: ${livre.editeur}</p>
                         <p>Langue: ${livre.langue}</p>
